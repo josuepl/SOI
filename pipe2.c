@@ -31,7 +31,7 @@ matrizB[1][2]='\0';
 
 printf("matriz A: \n [%s] \n [%s]\n",matrizA[0], matrizA[1]);
 printf("matriz B: \n [%s] \n [%s]\n",matrizB[0], matrizB[1]);
-
+// --.--
 write(c11[1],matrizA[0],1);
 write(c11[1],matrizB[0],1);
 
