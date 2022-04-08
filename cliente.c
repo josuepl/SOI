@@ -33,10 +33,16 @@ int main(int argc, char *argv[]){
  bcopy((char *)huesped->h_addr,(char *)&servidor.sin_addr,huesped->h_length);
  servidor.sin_family = AF_INET;
  servidor.sin_port = htons(atoi(argv[2]));
+
+char entrada[1024];
+int cmp = 1;
+while(cmp != 10 ){
  printf("Ingresa una cadena: \n");
  fgets(buffer,1024,stdin);
- printf("Cadena: %s\n",buffer);
+ strcpy(entrada,buffer);
 
+ cmp = strcmp(entrada,"adios");
+ printf("Buffer: %sEntrada:%s CMP: %d \n",buffer,entrada,cmp);
  n = sendto(sock, buffer,strlen(buffer),0, (struct sockaddr *)&servidor, tam);
   if(n < 0){
    printf("error al enviar el mensaje \n");
@@ -51,6 +57,7 @@ int main(int argc, char *argv[]){
   }
   write(1, "Se ha enviado un mensaje\n",27);
   write(1,buffer,n);
+}
   close(sock);
  
  return 0;
