@@ -31,18 +31,19 @@ int main(int argc, char *argv[]){
   return 0;
  }
  origenTam = sizeof(struct sockaddr_in);
+ printf("SERVIDOR ACTIVO ------- ESPERA A RECIBIR MENSAJES--------\n");
  while(1){
   n = recvfrom(sock,buffer,1024,0,(struct sockaddr *)&origen,&origenTam);
   if(n < 0){
    printf("error recibir datos \n");
    exit(0);
   }
-  write(1, "Se ha recibido un datagrama\n ",28);
+  write(1, "Se ha recibido un datagrama: ",28);
   write(1,buffer,n);
 
-  n = sendto(sock,"Servidor ha recibido tu msg \n",30,0, (struct sockaddr *)&origen, origenTam);
+  n = sendto(sock,"Servidor: He recibido tu msg \n",31,0, (struct sockaddr *)&origen, origenTam);
   if(n < 0){
-   printf("error recibir datos \n");
+   printf("error al enviar  datos \n");
    exit(0);  
   } 
  }
