@@ -8,7 +8,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]){
- int sock, tam, n;
+ int sock, tam, n, aux, aux2;
  socklen_t origenTam;
  struct hostent *huesped;
  struct sockaddr_in origen, servidor;
@@ -37,12 +37,20 @@ int main(int argc, char *argv[]){
 char entrada[1024];
 int cmp = 1;
 while(cmp != 10 ){
+ aux = 0;
  printf("Ingresa una cadena: \n");
  fgets(buffer,1024,stdin);
  strcpy(entrada,buffer);
 
  cmp = strcmp(entrada,"adios");
- printf("Buffer: %sEntrada:%s CMP: %d \n",buffer,entrada,cmp);
+ //printf("Buffer: %sEntrada:%s CMP: %d \n",buffer,entrada,cmp);
+ if(strcmp(entrada,"suma")==10){
+  aux = 1;
+ }
+ else if(strcmp(entrada,"resta")==10) aux =1;
+ else if(strcmp(entrada,"fibo")==10) aux =1;
+
+
  n = sendto(sock, buffer,strlen(buffer),0, (struct sockaddr *)&servidor, tam);
   if(n < 0){
    printf("error al enviar el mensaje \n");
@@ -55,8 +63,26 @@ while(cmp != 10 ){
    printf("error recibir datos \n");
    exit(0);
   }
-  write(1, "Se ha enviado un mensaje\n",27);
-  write(1,buffer,n);
+ char msg[100]= "Se ha enviado un mensaje";
+ buffer[n] = '\n';
+ strcat(msg,buffer);
+ aux2 = strlen(msg);
+  printf("%s \n",msg);
+  //write(1, msg ,aux);
+  //write(1,buffer,n);
+ if(aux == 1){
+   n = recvfrom(sock,buffer,1024,0,(struct sockaddr *)&origen,&tam);
+   char msg[100]= "Se ha enviado un mensaje";
+   buffer[n] = '\n';
+   strcat(msg,buffer);
+   aux2 = strlen(msg);
+   printf("%s \n",msg);
+  }
+  if(n < 0){
+   printf("error recibir datos \n");
+   exit(0);
+  }
+ 
 }
   close(sock);
  
