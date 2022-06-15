@@ -20,7 +20,7 @@ if(( pid = fork()) == 0){// HIJO
  printf("A-Resultado: %d \n",res);
 }
 else{//PADRE
-
+sleep(1);
  if(( pid = fork()) == 0){// HIJO
   res = a * b;
   printf("Hola, HIJOB: PID:%d, PPID:%d, FPID:%d \n",getpid(),getppid(),pid);
